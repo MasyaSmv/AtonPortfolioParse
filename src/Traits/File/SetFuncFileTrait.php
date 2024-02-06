@@ -1,6 +1,6 @@
 <?php
 
-namespace Aton\Portfolio\Parse\Interfaces\File;
+namespace Aton\Portfolio\Parse\Traits\File;
 
 use Aton\Portfolio\Parse\ClassTypes\ClientMoneyConvert;
 use Aton\Portfolio\Parse\ClassTypes\CommonData;
@@ -30,7 +30,7 @@ trait SetFuncFileTrait
      * @param Trades $trades Объект Trades.
      * @return $this Текущий объект.
      */
-    public function setTrades(Trades $trades)
+    public function setTrades($trades)
     {
         $this->trades = $trades;
         return $this;
@@ -42,7 +42,7 @@ trait SetFuncFileTrait
      * @param MoneyInOutIo $moneyInOutIo Объект MoneyInOutIo.
      * @return $this Текущий объект.
      */
-    public function setMoneyInOutIo(MoneyInOutIo $moneyInOutIo)
+    public function setMoneyInOutIo($moneyInOutIo)
     {
         $this->money_in_out_io = $moneyInOutIo;
         return $this;
@@ -54,7 +54,7 @@ trait SetFuncFileTrait
      * @param TradesRegRepo $tradesRegRepo Объект TradesRegRepo.
      * @return $this Текущий объект.
      */
-    public function setTradesRegRepo(TradesRegRepo $tradesRegRepo)
+    public function setTradesRegRepo($tradesRegRepo)
     {
         $this->trades_reg_repo = $tradesRegRepo;
         return $this;
@@ -66,7 +66,7 @@ trait SetFuncFileTrait
      * @param TradesNonRegRepo $TradesNonRegRepo Объект TradesNonRegRepo.
      * @return $this Текущий объект.
      */
-    public function setTradesNonRegRepo(TradesNonRegRepo $TradesNonRegRepo)
+    public function setTradesNonRegRepo($TradesNonRegRepo)
     {
         $this->trades_non_reg_repo = $TradesNonRegRepo;
         return $this;
@@ -78,7 +78,7 @@ trait SetFuncFileTrait
      * @param StockInOut $stockInOut Объект StockInOut.
      * @return $this Текущий объект.
      */
-    public function setStockInOut(StockInOut $stockInOut)
+    public function setStockInOut($stockInOut)
     {
         $this->stock_in_out = $stockInOut;
         return $this;
@@ -90,7 +90,7 @@ trait SetFuncFileTrait
      * @param MoneyInOut $moneyInOut Объект MoneyInOut.
      * @return $this Текущий объект.
      */
-    public function setMoneyInOut(MoneyInOut $moneyInOut)
+    public function setMoneyInOut($moneyInOut)
     {
         $this->money_in_out = $moneyInOut;
         return $this;
@@ -102,7 +102,7 @@ trait SetFuncFileTrait
      * @param MoneyConvert $moneyConvert Объект MoneyConvert.
      * @return $this Текущий объект.
      */
-    public function setMoneyConvert(MoneyConvert $moneyConvert)
+    public function setMoneyConvert($moneyConvert)
     {
         $this->money_convert = $moneyConvert;
         return $this;
@@ -114,7 +114,7 @@ trait SetFuncFileTrait
      * @param ClientMoneyConvert $clientMoneyConvert Объект ClientMoneyConvert.
      * @return $this Текущий объект.
      */
-    public function setClientMoneyConvert(ClientMoneyConvert $clientMoneyConvert)
+    public function setClientMoneyConvert($clientMoneyConvert)
     {
         $this->client_money_convert = $clientMoneyConvert;
         return $this;
@@ -126,7 +126,7 @@ trait SetFuncFileTrait
      * @param CorpActionIn $corpActionIn Объект CorpActionIn.
      * @return $this Текущий объект.
      */
-    public function setCorpActionIn(CorpActionIn $corpActionIn)
+    public function setCorpActionIn($corpActionIn)
     {
         $this->corp_action_in = $corpActionIn;
         return $this;
@@ -138,7 +138,7 @@ trait SetFuncFileTrait
      * @param CorpActionOut $corpActionOut Объект CorpActionOut.
      * @return $this Текущий объект.
      */
-    public function setCorpActionOut(CorpActionOut $corpActionOut)
+    public function setCorpActionOut($corpActionOut)
     {
         $this->corp_action_out = $corpActionOut;
         return $this;
@@ -150,7 +150,7 @@ trait SetFuncFileTrait
      * @param StockPayingOff $stockPayingOff Объект StockPayingOff.
      * @return $this Текущий объект.
      */
-    public function setStockPayingOff(StockPayingOff $stockPayingOff)
+    public function setStockPayingOff($stockPayingOff)
     {
         $this->stock_paying_off = $stockPayingOff;
         return $this;
@@ -162,7 +162,7 @@ trait SetFuncFileTrait
      * @param MoneyOnDate $moneyOnDate Объект MoneyOnDate.
      * @return $this Текущий объект.
      */
-    public function setMoneyOnDate(MoneyOnDate $moneyOnDate)
+    public function setMoneyOnDate($moneyOnDate)
     {
         $this->money_on_date = $moneyOnDate;
         return $this;
@@ -174,7 +174,7 @@ trait SetFuncFileTrait
      * @param CommonData $commonData Объект CommonData.
      * @return $this Текущий объект.
      */
-    public function setCommonData(CommonData $commonData)
+    public function setCommonData($commonData)
     {
         $this->common_data = $commonData;
         return $this;
@@ -186,7 +186,7 @@ trait SetFuncFileTrait
      * @param MoneyOnDateSingle $moneyOnDateSingle Объект MoneyOnDateSingle.
      * @return $this Текущий объект.
      */
-    public function setMoneyOnDateSingle(MoneyOnDateSingle $moneyOnDateSingle)
+    public function setMoneyOnDateSingle($moneyOnDateSingle)
     {
         $this->money_on_date_single = $moneyOnDateSingle;
         return $this;
@@ -198,7 +198,7 @@ trait SetFuncFileTrait
      * @param MoneyOnDateMarketPrc $moneyOnDateMarketPrc Объект MoneyOnDateMarketPrc.
      * @return $this Текущий объект.
      */
-    public function setMoneyOnDateMarketPrc(MoneyOnDateMarketPrc $moneyOnDateMarketPrc)
+    public function setMoneyOnDateMarketPrc($moneyOnDateMarketPrc)
     {
         $this->money_on_date_market_prc = $moneyOnDateMarketPrc;
         return $this;
@@ -210,7 +210,7 @@ trait SetFuncFileTrait
      * @param StockOnDate $stockOnDate Объект StockOnDate.
      * @return $this Текущий объект.
      */
-    public function setStockOnDate(StockOnDate $stockOnDate)
+    public function setStockOnDate($stockOnDate)
     {
         $this->stock_on_date = $stockOnDate;
         return $this;
@@ -222,7 +222,7 @@ trait SetFuncFileTrait
      * @param StockOnDateExg $stockOnDateExg Объект StockOnDateExg.
      * @return $this Текущий объект.
      */
-    public function setStockOnDateExg(StockOnDateExg $stockOnDateExg)
+    public function setStockOnDateExg($stockOnDateExg)
     {
         $this->stock_on_date_exg = $stockOnDateExg;
         return $this;
@@ -234,7 +234,7 @@ trait SetFuncFileTrait
      * @param StockOnDateExgSum $stockOnDateExgSum Объект StockOnDateExgSum.
      * @return $this Текущий объект.
      */
-    public function setStockOnDateExgSum(StockOnDateExgSum $stockOnDateExgSum)
+    public function setStockOnDateExgSum($stockOnDateExgSum)
     {
         $this->stock_on_date_exg_sum = $stockOnDateExgSum;
         return $this;
@@ -246,7 +246,7 @@ trait SetFuncFileTrait
      * @param StockOnDateMtl $stockOnDateMtl Объект StockOnDateMtl.
      * @return $this Текущий объект.
      */
-    public function setStockOnDateMtl(StockOnDateMtl $stockOnDateMtl)
+    public function setStockOnDateMtl($stockOnDateMtl)
     {
         $this->stock_on_date_mtl = $stockOnDateMtl;
         return $this;

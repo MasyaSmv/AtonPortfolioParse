@@ -2,9 +2,9 @@
 
 namespace Aton\Portfolio\Parse\ClassTypes;
 
-use Aton\Portfolio\Parse\File;
 
-class MoneyOnDateMarketPrc extends File
+
+class MoneyOnDateMarketPrc
 {
 
 }

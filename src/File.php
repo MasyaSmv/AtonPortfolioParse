@@ -22,14 +22,17 @@ use Aton\Portfolio\Parse\ClassTypes\Trades;
 use Aton\Portfolio\Parse\ClassTypes\TradesNonRegRepo;
 use Aton\Portfolio\Parse\ClassTypes\TradesRegRepo;
 use Aton\Portfolio\Parse\Interfaces\File\FileInterface;
-use Aton\Portfolio\Parse\Interfaces\File\GetFuncFileTrait;
-use Aton\Portfolio\Parse\Interfaces\File\SetFuncFileTrait;
+use Aton\Portfolio\Parse\Traits\File\GetFuncFileTrait;
+use Aton\Portfolio\Parse\Traits\File\SetFuncFileTrait;
+use Exception;
+use RuntimeException;
 use SimpleXMLElement;
 
 class File implements FileInterface
 {
     use GetFuncFileTrait;
     use SetFuncFileTrait;
+    
     /**
      * @var array Массив с данными файла.
      */
@@ -135,7 +138,7 @@ class File implements FileInterface
      *
      * @param string $file Путь к файлу.
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         $this->setDefaultFile($file);
         $this->createSwitchClassTypeFile();
@@ -146,20 +149,20 @@ class File implements FileInterface
      *
      * @param string $fileName Имя файла.
      * @return string Имя файла.
-     * @throws Exception Если файл не существует, не может быть прочитан или не имеет расширения xml.
+     * @throws RuntimeException Если файл не существует, не может быть прочитан или не имеет расширения xml.
      */
-    public function assertFile($fileName)
+    public function assertFile(string $fileName): string
     {
         if (!is_file($fileName)) {
-            throw new Exception('Файл "' . $fileName . '" не существует.');
+            throw new RuntimeException('Файл "' . $fileName . '" не существует.');
         }
 
         if (!is_readable($fileName)) {
-            throw new Exception('Не удалось открыть "' . $fileName . '" для чтения.');
+            throw new RuntimeException('Не удалось открыть "' . $fileName . '" для чтения.');
         }
 
         if (pathinfo($fileName, PATHINFO_EXTENSION) != 'xml') {
-            throw new Exception('Ожидается тип файла xml вместо "' . pathinfo($fileName, PATHINFO_EXTENSION));
+            throw new RuntimeException('Ожидается тип файла xml вместо "' . pathinfo($fileName, PATHINFO_EXTENSION));
         }
 
         return $fileName;
@@ -170,8 +173,9 @@ class File implements FileInterface
      *
      * @param string $file Путь к файлу.
      * @return array Преобразованный массив.
+     * @throws Exception
      */
-    public function fileXmlToArray($file)
+    public function fileXmlToArray(string $file): array
     {
         libxml_use_internal_errors(true);
         return $this->objToArray(new SimpleXMLElement($file, 0, true, 'BIS', true));
@@ -182,8 +186,9 @@ class File implements FileInterface
      *
      * @param string $defaultFile Путь к файлу.
      * @return $this Текущий объект.
+     * @throws Exception
      */
-    public function setDefaultFile($defaultFile)
+    public function setDefaultFile(string $defaultFile): File
     {
         $this->default_file = $this->fileXmlToArray($this->assertFile($defaultFile));
         return $this;
@@ -196,64 +201,64 @@ class File implements FileInterface
      */
     public function createSwitchClassTypeFile()
     {
-        foreach ($this->getDefaultFile() as $type) {
+        foreach ($this->getDefaultFile() as $key => $type) {
             switch ($type) {
-                case Trades:
-                    $this->setTrades(new Trades());
+                case 'Trades':
+                    $this->setTrades(new Trades($type));
                     break;
-                case MoneyInOut_io:
-                    $this->setMoneyInOutIo(new MoneyInOut_io());
+                case 'MoneyInOut_io':
+                    $this->setMoneyInOutIo(new MoneyInOutIo($type));
                     break;
-                case TradesRegRepo:
-                    $this->setTradesRegRepo(new TradesRegRepo());
+                case 'TradesRegRepo':
+                    $this->setTradesRegRepo(new TradesRegRepo($type));
                     break;
-                case TradesNonRegRepo:
-                    $this->setTradesNonRegRepo(new TradesNonRegRepo());
+                case 'TradesNonRegRepo':
+                    $this->setTradesNonRegRepo(new TradesNonRegRepo($type));
                     break;
-                case StockInOut:
-                    $this->setStockInOut(new StockInOut());
+                case 'StockInOut':
+                    $this->setStockInOut(new StockInOut($type));
                     break;
-                case MoneyInOut:
-                    $this->setMoneyInOut(new MoneyInOut());
+                case 'MoneyInOut':
+                    $this->setMoneyInOut(new MoneyInOut($type));
                     break;
-                case MoneyConvert:
-                    $this->setMoneyConvert(new MoneyConvert());
+                case 'MoneyConvert':
+                    $this->setMoneyConvert(new MoneyConvert($type));
                     break;
-                case ClientMoneyConvert:
-                    $this->setClientMoneyConvert(new ClientMoneyConvert());
+                case 'ClientMoneyConvert':
+                    $this->setClientMoneyConvert(new ClientMoneyConvert($type));
                     break;
-                case CorpActionIn:
-                    $this->setCorpActionIn(new CorpActionIn());
+                case 'CorpActionIn':
+                    $this->setCorpActionIn(new CorpActionIn($type));
                     break;
-                case CorpActionOut:
-                    $this->setCorpActionOut(new CorpActionOut());
+                case 'CorpActionOut':
+                    $this->setCorpActionOut(new CorpActionOut($type));
                     break;
-                case StockPayingOff:
-                    $this->setStockPayingOff(new StockPayingOff());
+                case 'StockPayingOff':
+                    $this->setStockPayingOff(new StockPayingOff($type));
                     break;
-                case MoneyOnDate:
-                    $this->setMoneyOnDate(new MoneyOnDate());
+                case 'MoneyOnDate':
+                    $this->setMoneyOnDate(new MoneyOnDate($type));
                     break;
-                case CommonData:
-                    $this->setCommonData(new CommonData());
+                case 'CommonData':
+                    $this->setCommonData(new CommonData($type));
                     break;
-                case MoneyOnDate_single:
-                    $this->setMoneyOnDate_single(new MoneyOnDate_single());
+                case 'MoneyOnDate_single':
+                    $this->setMoneyOnDateSingle(new MoneyOnDateSingle($type));
                     break;
-                case MoneyOnDate_MarketPrc:
-                    $this->setMoneyOnDateMarketPrc(new MoneyOnDate_MarketPrc());
+                case 'MoneyOnDate_MarketPrc':
+                    $this->setMoneyOnDateMarketPrc(new MoneyOnDateMarketPrc($type));
                     break;
-                case StockOnDate:
-                    $this->setStockOnDate(new StockOnDate());
+                case 'StockOnDate':
+                    $this->setStockOnDate(new StockOnDate($type));
                     break;
-                case StockOnDate_Exg:
-                    $this->setStockOnDateExg(new StockOnDate_Exg());
+                case 'StockOnDate_Exg':
+                    $this->setStockOnDateExg(new StockOnDateExg($type));
                     break;
-                case StockOnDate_Exg_Sum:
-                    $this->setStockOnDateExgSum(new StockOnDate_Exg_Sum());
+                case 'StockOnDate_Exg_Sum':
+                    $this->setStockOnDateExgSum(new StockOnDateExgSum($type));
                     break;
-                case StockOnDate_MTL:
-                    $this->setStockOnDateMtl(new StockOnDate_MTL());
+                case 'StockOnDate_MTL':
+                    $this->setStockOnDateMtl(new StockOnDateMTL($type));
                     break;
             }
         }
@@ -270,7 +275,7 @@ class File implements FileInterface
         if (is_object($obj) || is_array($obj)) {
             $ret = (array)$obj;
             foreach ($ret as &$item) {
-                $item = object_to_array($item);
+                $item = $this->objToArray($item);
             }
             return $ret;
         }

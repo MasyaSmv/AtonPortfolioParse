@@ -16,11 +16,11 @@ class ParseAtonFactory
 
     /**
      * @param $fileName
-     * @return File
+     * @return ParseAtonFactory
      */
-    public static function load($fileName): File
+    public static function load($fileName): ParseAtonFactory
     {
-        return (new self($fileName))->getFile();
+        return new self($fileName);
     }
 
     /**

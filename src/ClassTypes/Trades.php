@@ -2,9 +2,9 @@
 
 namespace Aton\Portfolio\Parse\ClassTypes;
 
-use Aton\Portfolio\Parse\File;
 
-class Trades extends File
+
+class Trades
 {
 
 }

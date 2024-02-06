@@ -2,9 +2,9 @@
 
 namespace Aton\Portfolio\Parse\ClassTypes;
 
-use Aton\Portfolio\Parse\File;
 
-class CommonData extends File
+
+class CommonData
 {
 
 }

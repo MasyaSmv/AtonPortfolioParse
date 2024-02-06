@@ -1,6 +1,6 @@
 <?php
 
-namespace Aton\Portfolio\Parse\Interfaces\File;
+namespace Aton\Portfolio\Parse\Traits\File;
 
 use Aton\Portfolio\Parse\ClassTypes\ClientMoneyConvert;
 use Aton\Portfolio\Parse\ClassTypes\CommonData;
