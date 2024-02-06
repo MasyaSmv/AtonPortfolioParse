@@ -1,0 +1,25 @@
+{
+  "name": "fin/aton-portfolio-parse",
+  "minimum-stability": "dev",
+  "description": "Aton Broker Portfolio File Reading Library",
+  "license": "MIT",
+  "type": "library",
+  "homepage": "https://github.com/MasyaSmv/AtonPortfolioParse",
+  "authors": [
+    {
+      "name": "MasyaSm",
+      "email": "kuvaldamax@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0,<8",
+    "ext-json": "*",
+    "nesbot/carbon": "2.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "aton-portfolio-parse\\": "src/"
+    }
+  }
+}
