@@ -32,111 +32,112 @@ class File implements FileInterface
 {
     use GetFuncFileTrait;
     use SetFuncFileTrait;
-    
+
     /**
      * @var array Массив с данными файла.
      */
     private array $default_file;
-    
+
     /**
      * @var Trades|null Объект Trades.
      */
     private ?Trades $trades = null;
-    
+
     /**
      * @var MoneyInOutIo|null Объект MoneyInOutIo.
      */
     private ?MoneyInOutIo $money_in_out_io = null;
-    
+
     /**
      * @var TradesRegRepo|null Объект TradesRegRepo.
      */
     private ?TradesRegRepo $trades_reg_repo = null;
-    
+
     /**
      * @var TradesNonRegRepo|null Объект TradesNonRegRepo.
      */
     private ?TradesNonRegRepo $trades_non_reg_repo = null;
-    
+
     /**
      * @var StockInOut|null Объект StockInOut.
      */
     private ?StockInOut $stock_in_out = null;
-    
+
     /**
      * @var MoneyInOut|null Объект MoneyInOut.
      */
     private ?MoneyInOut $money_in_out = null;
-    
+
     /**
      * @var MoneyConvert|null Объект MoneyConvert.
      */
     private ?MoneyConvert $money_convert = null;
-    
+
     /**
      * @var ClientMoneyConvert|null Объект ClientMoneyConvert.
      */
     private ?ClientMoneyConvert $client_money_convert = null;
-    
+
     /**
      * @var CorpActionIn|null Объект CorpActionIn.
      */
     private ?CorpActionIn $corp_action_in = null;
-    
+
     /**
      * @var CorpActionOut|null Объект CorpActionOut.
      */
     private ?CorpActionOut $corp_action_out = null;
-    
+
     /**
      * @var StockPayingOff|null Объект StockPayingOff.
      */
     private ?StockPayingOff $stock_paying_off = null;
-    
+
     /**
      * @var MoneyOnDate|null Объект MoneyOnDate.
      */
     private ?MoneyOnDate $money_on_date = null;
-    
+
     /**
      * @var CommonData|null Объект CommonData.
      */
     private ?CommonData $common_data = null;
-    
+
     /**
      * @var MoneyOnDateSingle|null Объект MoneyOnDateSingle.
      */
     private ?MoneyOnDateSingle $money_on_date_single = null;
-    
+
     /**
      * @var MoneyOnDateMarketPrc|null Объект MoneyOnDateMarketPrc.
      */
     private ?MoneyOnDateMarketPrc $money_on_date_market_prc = null;
-    
+
     /**
      * @var StockOnDate|null Объект StockOnDate.
      */
     private ?StockOnDate $stock_on_date = null;
-    
+
     /**
      * @var StockOnDateExg|null Объект StockOnDateExg.
      */
     private ?StockOnDateExg $stock_on_date_exg = null;
-    
+
     /**
      * @var StockOnDateExgSum|null Объект StockOnDateExgSum.
      */
     private ?StockOnDateExgSum $stock_on_date_exg_sum = null;
-    
+
     /**
      * @var StockOnDateMTL|null Объект StockOnDateMTL.
      */
     private ?StockOnDateMTL $stock_on_date_mtl = null;
-    
+
     /**
      * Конструктор.
      *
      * @param string $file Путь к файлу.
+     * @throws Exception
      */
     public function __construct(string $file)
     {
