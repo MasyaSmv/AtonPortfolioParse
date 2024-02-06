@@ -133,11 +133,32 @@ class File implements FileInterface
      */
     private ?StockOnDateMTL $stock_on_date_mtl = null;
 
+    private const ALL_TYPE_CLASSES = [
+        'Trades' => Trades::class,
+        'MoneyInOut_io' => MoneyInOutIo::class,
+        'TradesRegRepo' => TradesRegRepo::class,
+        'TradesNonRegRepo' => TradesNonRegRepo::class,
+        'StockInOut' => StockInOut::class,
+        'MoneyInOut' => MoneyInOut::class,
+        'MoneyConvert' => MoneyConvert::class,
+        'ClientMoneyConvert' => ClientMoneyConvert::class,
+        'CorpActionIn' => CorpActionIn::class,
+        'CorpActionOut' => CorpActionOut::class,
+        'StockPayingOff' => StockPayingOff::class,
+        'MoneyOnDate' => MoneyOnDate::class,
+        'CommonData' => CommonData::class,
+        'MoneyOnDate_single' => MoneyOnDateSingle::class,
+        'MoneyOnDate_MarketPrc' => MoneyOnDateMarketPrc::class,
+        'StockOnDate' => StockOnDate::class,
+        'StockOnDate_Exg' => StockOnDateExg::class,
+        'StockOnDate_Exg_Sum' => StockOnDateExgSum::class,
+        'StockOnDate_MTL' => StockOnDateMTL::class,
+    ];
+
     /**
      * Конструктор.
      *
      * @param string $file Путь к файлу.
-     * @throws Exception
      */
     public function __construct(string $file)
     {
@@ -200,68 +221,13 @@ class File implements FileInterface
      *
      * @return void
      */
-    public function createSwitchClassTypeFile()
+    public function createSwitchClassTypeFile(): void
     {
-        foreach ($this->getDefaultFile() as $key => $type) {
-            switch ($type) {
-                case 'Trades':
-                    $this->setTrades(new Trades($type));
-                    break;
-                case 'MoneyInOut_io':
-                    $this->setMoneyInOutIo(new MoneyInOutIo($type));
-                    break;
-                case 'TradesRegRepo':
-                    $this->setTradesRegRepo(new TradesRegRepo($type));
-                    break;
-                case 'TradesNonRegRepo':
-                    $this->setTradesNonRegRepo(new TradesNonRegRepo($type));
-                    break;
-                case 'StockInOut':
-                    $this->setStockInOut(new StockInOut($type));
-                    break;
-                case 'MoneyInOut':
-                    $this->setMoneyInOut(new MoneyInOut($type));
-                    break;
-                case 'MoneyConvert':
-                    $this->setMoneyConvert(new MoneyConvert($type));
-                    break;
-                case 'ClientMoneyConvert':
-                    $this->setClientMoneyConvert(new ClientMoneyConvert($type));
-                    break;
-                case 'CorpActionIn':
-                    $this->setCorpActionIn(new CorpActionIn($type));
-                    break;
-                case 'CorpActionOut':
-                    $this->setCorpActionOut(new CorpActionOut($type));
-                    break;
-                case 'StockPayingOff':
-                    $this->setStockPayingOff(new StockPayingOff($type));
-                    break;
-                case 'MoneyOnDate':
-                    $this->setMoneyOnDate(new MoneyOnDate($type));
-                    break;
-                case 'CommonData':
-                    $this->setCommonData(new CommonData($type));
-                    break;
-                case 'MoneyOnDate_single':
-                    $this->setMoneyOnDateSingle(new MoneyOnDateSingle($type));
-                    break;
-                case 'MoneyOnDate_MarketPrc':
-                    $this->setMoneyOnDateMarketPrc(new MoneyOnDateMarketPrc($type));
-                    break;
-                case 'StockOnDate':
-                    $this->setStockOnDate(new StockOnDate($type));
-                    break;
-                case 'StockOnDate_Exg':
-                    $this->setStockOnDateExg(new StockOnDateExg($type));
-                    break;
-                case 'StockOnDate_Exg_Sum':
-                    $this->setStockOnDateExgSum(new StockOnDateExgSum($type));
-                    break;
-                case 'StockOnDate_MTL':
-                    $this->setStockOnDateMtl(new StockOnDateMTL($type));
-                    break;
-            }
+        $file = $this->getDefaultFile();
+
+        foreach (self::ALL_TYPE_CLASSES as $key => $class) {
+            $func = 'set' . basename($class);
+            $this->$func(new $class($file[$key]));
         }
     }
 
