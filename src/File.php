@@ -221,7 +221,7 @@ class File implements FileInterface
      *
      * @return void
      */
-    public function createSwitchClassTypeFile(): void
+    public function createSwitchClassTypeFile()
     {
         $file = $this->getDefaultFile();
 

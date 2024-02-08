@@ -6,11 +6,11 @@ use Aton\Portfolio\Parse\Interfaces\ClassTypes\ClassTypesInterface;
 
 class MoneyOnDate implements ClassTypesInterface
 {
-    public array $data;
+    public array $defaultData;
 
-    public function __construct($data)
+    public function __construct($defaultData)
     {
-        $this->setData($data);
+        $this->setData($defaultData);
     }
 
     public function setData($data)
