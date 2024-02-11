@@ -4,15 +4,15 @@ namespace Aton\Portfolio\Parse;
 
 class RegexOperation
 {
-    private static string $first_pattern = '\(([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/\)$';
-    private static string $second_pattern = '^([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/$';
-    private static string $third_pattern = '^([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/([A-Za-z0-9А-Яа-я\-]+)$';
+    private static $first_pattern = '\(([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/\)$';
+    private static $second_pattern = '^([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/$';
+    private static $third_pattern = '^([A-Za-z0-9А-Яа-я\(\)\-\,\.\ \%\/\;\&\"\'\ \|]+)\/([A-Z0-9]{12})\/([A-Za-z0-9А-Яа-я\-]+)$';
 
     /**
      * @param $str
      * @return array|string[]
      */
-    public static function conditionFindRegex($str): array
+    public static function conditionFindRegex($str)
     {
         // Подготовка названия компании
         $str = self::prepareCompanyName($str);
@@ -33,7 +33,7 @@ class RegexOperation
      * @param $str
      * @return array
      */
-    public static function searchTickerByPatterns($str): array
+    public static function searchTickerByPatterns($str)
     {
         $result = self::searchForPatterns($str);
         if (empty($result)) {
@@ -55,7 +55,7 @@ class RegexOperation
      * @param $str
      * @return array|string[]
      */
-    public static function searchForPatterns($str): array
+    public static function searchForPatterns($str)
     {
         mb_ereg(self::$first_pattern, $str, $tickerAndCompany);
         if (!empty($tickerAndCompany) && count($tickerAndCompany) > 1) {

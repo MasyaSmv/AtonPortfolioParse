@@ -13,9 +13,9 @@ class StockOnDate implements ClassTypesInterface
         $this->setData($defaultData);
     }
 
-    public function setData($data)
+    public function setData($defaultData)
     {
-        $this->data = $data;
+        $this->data = $defaultData;
         return $this;
     }
 

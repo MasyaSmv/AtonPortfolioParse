@@ -4,10 +4,15 @@ namespace Aton\Portfolio\Parse\Traits\ClassOperations\Trades;
 
 trait GetOperationTradesTrait
 {
+    public function getTrade()
+    {
+        return $this;
+    }
+    
     /**
      * @return array
      */
-    public function getData(): array
+    public function getData()
     {
         $array = [];
 

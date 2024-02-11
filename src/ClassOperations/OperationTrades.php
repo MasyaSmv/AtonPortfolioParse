@@ -6,6 +6,7 @@ use Aton\Portfolio\Parse\Interfaces\ClassOperations\ClassOperationsInterface;
 use Aton\Portfolio\Parse\RegexOperation;
 use Aton\Portfolio\Parse\Traits\ClassOperations\Trades\GetOperationTradesTrait;
 use Aton\Portfolio\Parse\Traits\ClassOperations\Trades\SetOperationTradesTrait;
+use Carbon\Carbon;
 
 class OperationTrades implements ClassOperationsInterface
 {
@@ -53,7 +54,9 @@ class OperationTrades implements ClassOperationsInterface
     {
         self::$data = $data;
         $this->addSetData($data);
-        $this->searchTickerAndCompany();
+        $this->setCompany($this->searchCompany());
+        $this->setTicker($this->searchTicker());
+        $this->setOperDateTimeSort($this->searchOperDateTimeSort());
     }
 
     /**
@@ -73,24 +76,69 @@ class OperationTrades implements ClassOperationsInterface
     }
 
     /**
-     * @return true|null
+     * @return array|null
      */
-    private function searchTickerAndCompany(): ?bool
+    private function searchTickerAndCompany(): ?array
     {
         $fullName = $this->getAssetName();
         $result = RegexOperation::conditionFindRegex($fullName);
-        if(empty($result)) {
-           return null;
+        if (empty($result)) {
+            return null;
         }
 
-        $this->setcompany($result[0]);
-        $this->setTicker($result[1]);
-
-        return true;
+        return [$result[0], $result[1]];
     }
-    
-    private function searchOperDateTimeSort()
+
+    /**
+     * @return mixed
+     */
+    private function searchTicker()
     {
-        
+        [$company, $ticker] = $this->searchTickerAndCompany();
+        return $ticker;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function searchCompany()
+    {
+        [$company, $ticker] = $this->searchTickerAndCompany();
+        return $company;
+    }
+
+    /**
+     * @return Carbon
+     */
+    private function searchOperDateTimeSort(): Carbon
+    {
+        if ($this->getOperDateSort() && $this->getOperTimeSort()) {
+            $date = $this->getOperDateSort();
+            $time = $this->getOperTimeSort();
+        }else{
+            [$date, $time] = $this->searchDateTimeInOperNum();
+        }
+
+        $date = Carbon::createFromFormat('d.m.Y H:i:s', $date)->format('Y-m-d');
+        $time = Carbon::createFromFormat('d.m.Y H:i:s', $time)->format('H:i:s');
+        return Carbon::parse($date . $time);
+    }
+
+    /**
+     * @return array
+     */
+    private function separationIntOperNum(): array
+    {
+        $explodes = explode(',', $this->getIntOperNum());
+        return [$explodes[0], trim($explodes[1]), trim($explodes[2]), trim($explodes[3])];
+    }
+
+    /**
+     * @return array
+     */
+    private function searchDateTimeInOperNum(): array
+    {
+        [$contract, $date, $time, $contractTwo] = $this->separationIntOperNum();
+        return [$date, $time];
     }
 }

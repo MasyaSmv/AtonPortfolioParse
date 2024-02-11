@@ -10,7 +10,7 @@ trait SetOperationTradesTrait
         return $this;
     }
     
-    public function setcompany($company)
+    public function setCompany($company)
     {
         $this->company = $company;
         return $this;
