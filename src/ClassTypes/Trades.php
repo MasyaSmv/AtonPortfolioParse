@@ -30,7 +30,7 @@ class Trades implements ClassTypesInterface
             $value = $value['@attributes'] ?? $value;
 
             $operation = new OperationTrades($value);
-            $arrays[] = $operation->getTrade();
+            $arrays[] = $operation->getOperation();
         }
 
         return $arrays;

@@ -4,7 +4,7 @@ namespace Aton\Portfolio\Parse\Traits\ClassOperations\Trades;
 
 trait GetOperationTradesTrait
 {
-    public function getTrade()
+    public function getOperation()
     {
         return $this;
     }

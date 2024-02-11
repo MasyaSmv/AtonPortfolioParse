@@ -152,13 +152,14 @@ class File implements FileInterface
         'StockOnDate' => StockOnDate::class,
         'StockOnDate_Exg' => StockOnDateExg::class,
         'StockOnDate_Exg_Sum' => StockOnDateExgSum::class,
-        'StockOnDate_MTL' => StockOnDateMTL::class,
+        'StockOnDate_MTL' => StockOnDateMtl::class,
     ];
 
     /**
      * Конструктор.
      *
      * @param string $file Путь к файлу.
+     * @throws Exception
      */
     public function __construct(string $file)
     {
@@ -221,11 +222,15 @@ class File implements FileInterface
      *
      * @return void
      */
-    public function createSwitchClassTypeFile()
+    public function createSwitchClassTypeFile(): void
     {
         $file = $this->getDefaultFile();
 
         foreach (self::ALL_TYPE_CLASSES as $key => $class) {
+            if (!isset($file[$key])) {
+                continue;
+            }
+
             $func = 'set' . basename($class);
             $this->$func(new $class($file[$key]));
         }
